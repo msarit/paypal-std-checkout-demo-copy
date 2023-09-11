@@ -24,7 +24,7 @@ const generateAccessToken = async () => {
       throw new Error("MISSING_API_CREDENTIALS");
     }
     const auth = Buffer.from(
-      PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET
+      PAYPAL_CLIENT_ID + ":" + PAYPAL_CLIENT_SECRET,
     ).toString("base64");
     const response = await fetch(`${base}/v1/oauth2/token`, {
       method: "POST",
@@ -57,7 +57,7 @@ const createOrder = async (cart) => {
   // use the cart information passed from the front-end to calculate the purchase unit details
   console.log(
     "shopping cart information passed from the frontend createOrder() callback:",
-    cart
+    cart,
   );
 
   const accessToken = await generateAccessToken();
@@ -76,7 +76,7 @@ const createOrder = async (cart) => {
               id: "SHIP_123",
               label: "Flat-Rate Shipping",
               type: "SHIPPING",
-              selected: true,
+              selected: false,
               amount: {
                 value: "3.00",
                 currency_code: "USD",
@@ -86,7 +86,7 @@ const createOrder = async (cart) => {
               id: "SHIP_456",
               label: "Expedited Shipping",
               type: "SHIPPING",
-              selected: false,
+              selected: true,
               amount: {
                 value: "15.00",
                 currency_code: "USD",
